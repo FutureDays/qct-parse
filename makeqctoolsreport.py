@@ -27,7 +27,7 @@ def dependencies():
 	depends = ['ffmpeg','ffprobe']
 	for d in depends:
 		if spawn.find_executable(d) is None:
-			print "Buddy, you gotta install " + d
+			print("Buddy, you gotta install " + d)
 			sys.exit()
 	return
 
@@ -64,8 +64,8 @@ def parseInput(startObj,outPath):
 	for line in ffdata:
 		if re.search('streams.stream.' + whichStreamVid + '.codec_name=', line):
 			#dunno why we gotta remove quotes twice but there ya go
-			[f[1:-1] for f in re.findall('".+?"', line)]
-			codecName = f[1:-1]
+			matches = [f[1:-1] for f in re.findall('".+?"', line)]
+			codecName = matches[0]
 	ffdata.close()
 	
 	if outPath is not None:
@@ -107,7 +107,7 @@ def get_audio_stream_count(startObj):
 def makeReport(startObj, outPath):
 	with cd(os.path.dirname(startObj)): #change directory into folder where orig video is. necessary because movie= fails when there's a : in path, like on windows :(
 		#here's where we use ffprobe to make the qctools report in regular xml
-		print "writing ffprobe output to xml..."
+		print("writing ffprobe output to xml...")
 		audio_tracks = get_audio_stream_count(startObj) #find out how many audio streams there are
 		if audio_tracks > 0:
 			#make the ffprobe for 1 or more audio tracks
@@ -126,7 +126,7 @@ def makeReport(startObj, outPath):
 		tmpxml.close()
 
 	#gzip that tmpxml file then delete the regular xml file cause we dont need it anymore
-	print "gzip-ing ffprobe xml output"
+	print("gzip-ing ffprobe xml output")
 	with open(tmpxmlpath, 'rb') as f_in, gzip.open(tmpxmlpath + '.gz','wb') as f_out: #open takes string args for file to open, not the file obj itself
 		shutil.copyfileobj(f_in,f_out)
 	os.remove(tmpxmlpath) #remove takes a full path string not a file obj (e.g. not tmpxml)
@@ -145,8 +145,8 @@ def main():
 	
 	#make sure it's really real
 	if not os.path.exists(startObj):
-		print ""
-		print "The input file " + startObj + " does not exist"
+		print("")
+		print("The input file " + startObj + " does not exist")
 		sys.exit()
 		
 	if args.rop is not None:

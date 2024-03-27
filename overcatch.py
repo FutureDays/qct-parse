@@ -11,7 +11,7 @@ import subprocess
 import os
 import sys
 import re
-import ConfigParser		#grip frame data values from a config txt file
+import configparser		#grip frame data values from a config txt file
 
 def main():
 	parser = argparse.ArgumentParser(description="runs input QCTools Report against high, medium, and low tolerance profiles, for bars and content")
@@ -21,12 +21,12 @@ def main():
 	parser.add_argument('-t','--tag',dest='t',default="YMAX",help="the tag to look for, default is YMAX")
 	args = parser.parse_args()
 	
-	print "Starting analysis on " + os.path.basename(args.i)
+	print("Starting analysis on " + os.path.basename(args.i))
 	
 	#set the profiles we want to run against the startObj
 	profileList = ["highTolerance","midTolerance","lowTolerance"]
 	profileDict = {} #init dictionary for profileName : tagValue
-	config = ConfigParser.RawConfigParser(allow_no_value=True) #init the library for reading a config file
+	config = configparser.RawConfigParser(allow_no_value=True) #init the library for reading a config file
 	dn, fn = os.path.split(os.path.abspath(__file__)) #grip the dir where ~this script~ is located, also where config.txt should be located
 	config.read(os.path.join(dn,"qct-parse_config.txt")) #read in the config file
 	
@@ -35,9 +35,9 @@ def main():
 		try:
 			profileDict[profile] = config.get(profile,args.t)
 		except:
-			print "Buddy, theres no tag threshold defined for " + args.t + " for the profile " + profile
-			print "Check the config file at " + os.path.join(dn,"qct-parse_config.txt")
-			print ""
+			print("Buddy, theres no tag threshold defined for " + args.t + " for the profile " + profile)
+			print("Check the config file at " + os.path.join(dn,"qct-parse_config.txt"))
+			print("")
 			pass
 
 	#these will be filled with our ourput strings for each profile, later
@@ -76,14 +76,14 @@ def main():
 
 def printout(barOutDict,contentOutDict,profileDict):
 	if barOutDict:
-		print ""
-		print "For bars"
+		print("")
+		print("For bars")
 		for bod in barOutDict:
-			print "Frames beyond " + profileDict[bod] + " for " + barOutDict[bod]
+			print("Frames beyond " + profileDict[bod] + " for " + barOutDict[bod])
 	if contentOutDict:
-		print ""
-		print "For content"
+		print("")
+		print("For content")
 		for cod in contentOutDict:
-			print "Frames beyond " + profileDict[cod] + " for " + contentOutDict[cod]
+			print("Frames beyond " + profileDict[cod] + " for " + contentOutDict[cod])
 
 main()

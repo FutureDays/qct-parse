@@ -1,50 +1,56 @@
 #based on qctools docs
+#updated to match 10bit values
+
 [default]
-YLOW: 16
-YHIGH: 235
-ULOW: 16
-UHIGH: 235
+YLOW: 64
+YHIGH: 940
+ULOW: 64
+UHIGH: 940
 VLOW: 0
-VHIGH: 255
+VHIGH: 1023
 SATMAX: 181.02
 TOUT: 0.009
 VREP: 0.03
 
 #Higher Tolerance for Peaking
 [highTolerance]
-YLOW: 10
-YMAX: 250
-UMIN: 16
-UMAX: 250
+YLOW: 40
+YMAX: 1000
+UMIN: 64
+UMAX: 1000
 VMIN: 0
-VMAX: 255
+VMAX: 1023
 SATMAX: 181.02
 TOUT: 0.009
 VREP: 0.03
 
 #Medium Tolerance for Peaking
 [midTolerance]
-YLOW: 10
-YMAX: 245
-UMIN: 16
-UMAX: 245
+YLOW: 40
+YMAX: 980
+UMIN: 64
+UMAX: 980
 VMIN: 0
-VMAX: 255
+VMAX: 1023
 SATMAX: 181.02
 TOUT: 0.009
 VREP: 0.03
 
 #Low Tolerance for Peaking
 [lowTolerance]
-YLOW: 16
-YMAX: 235
-UMIN: 16
-UMAX: 235
+YLOW: 64
+YMAX: 940
+UMIN: 64
+UMAX: 940
 VMIN: 0
-VMAX: 255
+VMAX: 1023
 SATMAX: 181.02
 TOUT: 0.009
 VREP: 0.03
+
+#Broadcast Range Only
+[broadcastRange]
+BRNG: 0.25
 
 [fullTagList]
 YMIN:
